@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 沖繩大探險！🏖️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes fly { from { left: -10%; } to { left: 110%; } }
+        .animate-vibe-cloud { animation: float 6s ease-in-out infinite; }
+        .animate-vibe-plane { position: absolute; top: 15%; animation: fly 20s linear infinite; opacity: 0.3; }
+        .slide { display: none; }
+        .slide.active { display: flex; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="bg-rose-50 font-sans h-screen flex items-center justify-center p-4 overflow-hidden">
+
+    <div class="animate-vibe-plane text-4xl">✈️</div>
+    <div class="absolute top-10 left-10 text-6xl opacity-10 animate-vibe-cloud">☁️</div>
+    <div class="absolute bottom-10 right-10 text-8xl opacity-10 animate-vibe-cloud" style="animation-delay:2s">☁️</div>
+
+    <div class="w-full max-w-4xl bg-white rounded-[40px] shadow-2xl overflow-hidden relative aspect-[16/10] flex flex-col border-[8px] border-white z-10">
+        
+        <div id="content" class="flex-1 p-8 md:p-12 transition-all duration-500">
+            <div class="slide active flex-col items-center justify-center h-full text-center bg-gradient-to-b from-sky-300 to-yellow-100" data-bg="bg-gradient-to-b from-sky-300 to-yellow-100">
+                <div class="text-8xl mb-6 animate-bounce">✈️</div>
+                <h1 class="text-5xl font-black text-blue-600 mb-4">2026 沖繩大探險！</h1>
+                <p class="bg-white/80 px-6 py-2 rounded-full text-blue-500 font-bold text-xl shadow-lg">爸爸媽媽與寶貝的藍色假期 🌊</p>
+            </div>
+
+            <div class="slide flex-col justify-center h-full" data-bg="bg-cyan-50">
+                <span class="inline-block w-fit px-6 py-1 bg-blue-600 text-white rounded-full font-black mb-4 transform -rotate-2 text-sm">Mission 1</span>
+                <h2 class="text-4xl font-black text-slate-800 mb-6">遇見大海與飛機 ✈️</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow border-l-4 border-blue-400 flex gap-4 items-center">
+                        <span class="text-3xl">🚗</span><div><b class="text-blue-700">領取戰車</b><p class="text-xs text-slate-500">專人接送，開啟自駕！</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl shadow border-l-4 border-orange-400 flex gap-4 items-center">
+                        <span class="text-3xl">🐠</span><div><b class="text-orange-600">DMM 水族館</b><p class="text-xs text-slate-500">在玻璃地板上走路！</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide flex-col items-center justify-center h-full text-white text-center bg-gradient-to-br from-pink-400 to-orange-400" data-bg="bg-gradient-to-br from-pink-400 to-orange-400">
+                <h2 class="text-4xl font-black mb-6">今晚我想來點... 🥩</h2>
+                <div class="flex gap-4 mb-8">
+                    <button onclick="select(this)" class="bg-white/20 p-4 rounded-2xl border-2 border-transparent hover:bg-white/40 transition-all font-bold">琉球之牛🐂</button>
+                    <button onclick="select(this)" class="bg-white/20 p-4 rounded-2xl border-2 border-transparent hover:bg-white/40 transition-all font-bold">百年古家🐷</button>
+                </div>
+                <button onclick="goTo(0)" class="bg-white text-rose-500 px-8 py-3 rounded-full font-black text-lg shadow-xl hover:scale-105 transition-all">重新出發</button>
+            </div>
+        </div>
+
+        <div class="h-20 bg-white flex items-center justify-between px-8 border-t">
+            <button onclick="prev()" class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center font-black">◀</button>
+            <div class="text-slate-400 font-bold" id="page-num">1 / 3</div>
+            <button onclick="next()" class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-black">▶</button>
+        </div>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const pageNum = document.getElementById('page-num');
+
+        function update() {
+            slides.forEach((s, i) => s.classList.toggle('active', i === current));
+            pageNum.innerText = `${current + 1} / ${slides.length}`;
+        }
+        function next() { if(current < slides.length - 1) { current++; update(); } }
+        function prev() { if(current > 0) { current--; update(); } }
+        function goTo(n) { current = n; update(); }
+        function select(btn) {
+            document.querySelectorAll('button').forEach(b => b.classList.remove('border-yellow-300', 'bg-white', 'text-rose-500'));
+            btn.classList.add('border-yellow-300', 'bg-white', 'text-rose-500');
+            alert("選好了！出發！🔥");
+        }
+    </script>
+</body>
+</html>
